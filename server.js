@@ -46,11 +46,29 @@ app.post("/api/start", (req, res) => {
 });
 
 app.post("/api/referal", (req, res) => {
-  res.json({
-    message: "Hello, World!",
-    data: "data", // data
-    status: "success",
-  });
+  const data = req.body;
+
+  const db = admin.firestore();
+  db.collection("referals")
+    .doc("referalId-" + data.referal)
+    .get()
+    .then((doc) => {
+      console.log(doc.data());
+      if (doc.exists) {
+        res.json({
+          message: "Hello, World!",
+
+          name: doc.data().name,
+          // data from the request
+        });
+      } else {
+        res.status(201).json({
+          message: "Hello, World!",
+          data: data,
+          status: "failed",
+        });
+      }
+    });
 });
 
 app.listen(1234, () => {
