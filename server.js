@@ -45,6 +45,14 @@ app.post("/api/start", (req, res) => {
     });
 });
 
+app.get("/api/wakeUp", (req, res) => {
+  res.json({
+    message: "Hello, World!",
+    data: "data",
+    status: "success",
+  });
+});
+
 app.post("/api/referal", (req, res) => {
   const data = req.body;
 
