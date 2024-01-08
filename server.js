@@ -48,7 +48,7 @@ app.post("/api/start", (req, res) => {
 app.post("/api/referal", (req, res) => {
   res.json({
     message: "Hello, World!",
-    data: "data",
+    data: "data", // data
     status: "success",
   });
 });
