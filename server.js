@@ -45,6 +45,14 @@ app.post("/api/start", (req, res) => {
     });
 });
 
+app.post("/api/referal", (req, res) => {
+  res.json({
+    message: "Hello, World!",
+    data: "data",
+    status: "success",
+  });
+});
+
 app.listen(1234, () => {
-  console.log("Server running on port 3000");
+  console.log("Server running on port 1234");
 });
