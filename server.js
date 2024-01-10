@@ -27,9 +27,17 @@ app.post("/api/start", (req, res) => {
     .collection("users")
     .doc(data.dato + "-" + data.email)
     .set(data);
-
+  console.log(data);
   docRef
     .then(() => {
+      if (data.referal != "") {
+        db.collection("referals")
+          .doc("referalId-" + data.referal)
+          .collection("clients")
+          .doc(data.dato + "-" + data.email)
+          .set(data);
+      }
+
       res.json({
         message: "Hello, World!",
         data: data,
