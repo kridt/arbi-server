@@ -27,10 +27,11 @@ app.post("/api/start", (req, res) => {
     .collection("users")
     .doc(data.dato + "-" + data.email)
     .set(data);
-  console.log(data);
+
   docRef
     .then(() => {
       if (data.referal != "") {
+        data.payed = false;
         db.collection("referals")
           .doc("referalId-" + data.referal)
           .collection("clients")
@@ -69,7 +70,6 @@ app.post("/api/referal", (req, res) => {
     .doc("referalId-" + data.referal)
     .get()
     .then((doc) => {
-      console.log(doc.data());
       if (doc.exists) {
         res.json({
           message: "Hello, World!",
