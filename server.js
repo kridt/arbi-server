@@ -24,15 +24,19 @@ app.post("/api/start", (req, res) => {
 
   const db = admin.firestore();
   const docRef = db
-    .collection("users")
+    .collection("admins")
+    .doc(data.admin)
+    .collection("clients")
     .doc(data.dato + "-" + data.email)
     .set(data);
-
+  console.log(data);
   docRef
     .then(() => {
       if (data.referal != "") {
         data.payed = false;
-        db.collection("referals")
+        db.collection("admins")
+          .doc(data.admin)
+          .collection("referals")
           .doc("referalId-" + data.referal)
           .collection("clients")
           .doc(data.dato + "-" + data.email)
@@ -64,9 +68,12 @@ app.get("/api/wakeUp", (req, res) => {
 
 app.post("/api/referal", (req, res) => {
   const data = req.body;
-
   const db = admin.firestore();
-  db.collection("referals")
+  console.log(data);
+
+  db.collection("admins")
+    .doc(data.admin)
+    .collection("referals")
     .doc("referalId-" + data.referal)
     .get()
     .then((doc) => {
